@@ -1,6 +1,6 @@
 {
   "name": "hover-caption",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "authors": [
     "miztroh <miztroh@gmail.com>"
   ],
@@ -23,7 +23,6 @@
     "tests"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#latest",
     "core-collapse": "Polymer/core-collapse#latest"
   }
 }
