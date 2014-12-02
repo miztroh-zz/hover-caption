@@ -1,0 +1,113 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<!--
+A Polymer custom element that provides on-hover captions for the parent element.
+
+@element hover-caption
+@homepage https://github.com/miztroh/hover-caption
+-->
+<link rel="import" href="/bower_components/core-collapse/core-collapse.html">
+<polymer-element name="hover-caption" attributes="alignTo">
+  <template>
+  	<style>
+  		:host {
+				display: block;
+			}
+
+			:host::shadow #layout {
+				position: absolute;
+				top: 0;
+				right: 1px;
+				bottom: 6px;
+				left: 1px;
+			}
+
+			:host::shadow #collapse {
+				pointer-events: none;
+			}
+
+			:host::shadow #padding {
+				padding: 18px;
+				background: rgba(0,0,0,.7);
+			}
+
+			:host::shadow #caption {
+				color: #bbb;
+				line-height: 1.68em;
+				font-size: 12px;
+				text-align: left;
+			}
+  	</style>
+		<div id="layout" horizontal layout>
+			<core-collapse flex id="collapse">
+				<div id="padding">
+					<div id="caption">
+						<content></content>
+					</div>
+				</div>
+			</core-collapse>
+		</div>
+  </template>
+	<script>
+		Polymer(
+			{/**
+        * Align the caption to the 'top' or 'bottom' of its parent.
+        *
+        * @property alignTo
+        * @type String
+        * @default 'bottom'
+        */
+				/**
+        * Set opened to true to show the caption and to false to hide it.
+        *
+        * @property opened
+        * @type boolean
+        * @default false
+        */
+				alignToChanged: function () {
+					switch (this.alignTo) {
+						case 'top':
+							this.$.layout.removeAttribute('end');
+							this.$.layout.setAttribute('start', '');
+							break;
+						case 'bottom':
+							this.$.layout.removeAttribute('start');
+							this.$.layout.setAttribute('end', '');
+							break;
+						default:
+							this.alignTo = 'bottom';
+							break;
+					}
+				},
+				ready: function () {
+					var that = this;
+
+					this.$.layout.addEventListener(
+						'mouseover',
+						function () {
+							if (that.hasAttribute('disabled')) return;
+							that.$.collapse.opened = true;
+						}
+					);
+
+					this.$.layout.addEventListener(
+						'mouseout',
+						function () {
+							if (that.hasAttribute('disabled')) return;
+							that.$.collapse.opened = false;
+						}
+					);
+
+					this.alignToChanged();
+				},
+				/**
+         * Toggle the opened state.
+         *
+         * @method toggle
+         */
+				toggle: function () {
+					this.$.collapse.opened = !this.$.collapse.opened;
+				}
+			}
+		);
+	</script>
+</polymer-element>

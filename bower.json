@@ -1,0 +1,29 @@
+{
+  "name": "hover-caption",
+  "version": "0.0.1",
+  "authors": [
+    "miztroh <miztroh@gmail.com>"
+  ],
+  "description": "A Polymer custom element for displaying elapsed time.",
+  "main": "hover-caption.html",
+  "keywords": [
+    "polymer",
+    "hover",
+    "caption",
+    "hover caption",
+    "web-components"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/miztroh/hover-caption",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#latest",
+    "core-collapse": "Polymer/core-collapse#latest"
+  }
+}
