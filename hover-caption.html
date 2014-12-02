@@ -13,14 +13,6 @@ A Polymer custom element that provides on-hover captions for the parent element.
 				display: block;
 			}
 
-			:host::shadow #layout {
-				position: absolute;
-				top: 0;
-				right: 1px;
-				bottom: 6px;
-				left: 1px;
-			}
-
 			:host::shadow #collapse {
 				pointer-events: none;
 			}
@@ -37,7 +29,7 @@ A Polymer custom element that provides on-hover captions for the parent element.
 				text-align: left;
 			}
   	</style>
-		<div id="layout" horizontal layout>
+		<div id="layout" horizontal layout fit>
 			<core-collapse flex id="collapse">
 				<div id="padding">
 					<div id="caption">
