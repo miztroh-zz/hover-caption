@@ -6,15 +6,11 @@ A Polymer custom element that provides on-hover captions for the parent element.
 @homepage https://github.com/miztroh/hover-caption
 -->
 <link rel="import" href="/bower_components/core-collapse/core-collapse.html">
-<polymer-element name="hover-caption" attributes="alignTo">
+<polymer-element name="hover-caption">
   <template>
   	<style>
   		:host {
 				display: block;
-			}
-
-			:host::shadow #collapse {
-				pointer-events: none;
 			}
 
 			:host::shadow #padding {
@@ -70,22 +66,35 @@ A Polymer custom element that provides on-hover captions for the parent element.
 							break;
 					}
 				},
+				openedChanged: function () {
+					if (this.opened !== !!this.opened) {
+						this.opened = !!this.opened;
+						return;
+					}
+
+					this.$.collapse.opened = this.opened;
+				},
+				publish: {
+					alignTo: 'bottom',
+					opened: {
+						value: false,
+						reflect: true
+					}
+				},
 				ready: function () {
 					var that = this;
 
 					this.$.layout.addEventListener(
 						'mouseover',
 						function () {
-							if (that.hasAttribute('disabled') || that.textContent.length === 0) return;
-							that.$.collapse.opened = true;
+							if (!that.hasAttribute('disabled') && that.children.length > 0) that.opened = true;
 						}
 					);
 
 					this.$.layout.addEventListener(
 						'mouseout',
-						function () {
-							if (that.hasAttribute('disabled')) return;
-							that.$.collapse.opened = false;
+						function (event) {
+							if (!that.hasAttribute('disabled') && !that.contains(document.elementFromPoint(event.x, event.y))) that.opened = false;
 						}
 					);
 
@@ -97,7 +106,7 @@ A Polymer custom element that provides on-hover captions for the parent element.
          * @method toggle
          */
 				toggle: function () {
-					this.$.collapse.opened = !this.$.collapse.opened;
+					this.opened = !this.opened;
 				}
 			}
 		);
