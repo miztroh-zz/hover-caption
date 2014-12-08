@@ -87,7 +87,7 @@ A Polymer custom element that provides on-hover captions for the parent element.
 					this.$.layout.addEventListener(
 						'mouseover',
 						function () {
-							if (!that.hasAttribute('disabled') && that.children.length > 0) that.opened = true;
+							if (!that.hasAttribute('disabled') && (that.children.length > 0 || that.textContent.length > 0)) that.opened = true;
 						}
 					);
 
