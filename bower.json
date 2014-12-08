@@ -1,10 +1,10 @@
 {
   "name": "hover-caption",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "authors": [
     "miztroh <miztroh@gmail.com>"
   ],
-  "description": "A Polymer custom element for displaying elapsed time.",
+  "description": "A Polymer custom element that provides on-hover captions for the parent element.",
   "main": "hover-caption.html",
   "keywords": [
     "polymer",
