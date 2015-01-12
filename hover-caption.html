@@ -37,20 +37,7 @@ A Polymer custom element that provides on-hover captions for the parent element.
   </template>
 	<script>
 		Polymer(
-			{/**
-        * Align the caption to the 'top' or 'bottom' of its parent.
-        *
-        * @property alignTo
-        * @type String
-        * @default 'bottom'
-        */
-				/**
-        * Set opened to true to show the caption and to false to hide it.
-        *
-        * @property opened
-        * @type boolean
-        * @default false
-        */
+			{
 				alignToChanged: function () {
 					switch (this.alignTo) {
 						case 'top':
@@ -75,7 +62,21 @@ A Polymer custom element that provides on-hover captions for the parent element.
 					this.$.collapse.opened = this.opened;
 				},
 				publish: {
+  				/**
+          * Align the caption to the 'top' or 'bottom' of its parent.
+          *
+          * @property alignTo
+          * @type String
+          * @default 'bottom'
+          */
 					alignTo: 'bottom',
+  				/**
+          * Set opened to true to show the caption and to false to hide it.
+          *
+          * @property opened
+          * @type boolean
+          * @default false
+          */
 					opened: {
 						value: false,
 						reflect: true
