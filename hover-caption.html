@@ -1,85 +1,68 @@
-<link rel="import" href="/bower_components/polymer/polymer.html">
-<!--
-A Polymer custom element that provides on-hover captions for the parent element.
-
-@element hover-caption
-@homepage https://github.com/miztroh/hover-caption
--->
-<link rel="import" href="/bower_components/core-collapse/core-collapse.html">
-<polymer-element name="hover-caption">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-collapse/iron-collapse.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<dom-module id="hover-caption">
   <template>
   	<style>
   		:host {
 				display: block;
 			}
 
-			:host::shadow #padding {
+			#layout {
+				@apply(--layout-horizontal);
+				@apply(--layout-fit);
+			}
+
+			:host([align-to="top"]) #layout {
+				@apply(--layout-start);
+			}
+
+			:host([align-to="bottom"]) #layout {
+				@apply(--layout-end);
+			}
+
+			#collapse {
+				@apply(--layout-flex);
+			}
+
+			#padding {
 				padding: 18px;
 				background: rgba(0,0,0,.7);
 			}
 
-			:host::shadow #caption {
+			#caption {
 				color: #bbb;
 				line-height: 1.68em;
 				font-size: 12px;
 				text-align: left;
 			}
   	</style>
-		<div id="layout" horizontal layout fit>
-			<core-collapse flex id="collapse">
+		<div id="layout">
+			<iron-collapse id="collapse">
 				<div id="padding">
 					<div id="caption">
 						<content></content>
 					</div>
 				</div>
-			</core-collapse>
+			</iron-collapse>
 		</div>
   </template>
 	<script>
 		Polymer(
 			{
-				alignToChanged: function () {
-					switch (this.alignTo) {
-						case 'top':
-							this.$.layout.removeAttribute('end');
-							this.$.layout.setAttribute('start', '');
-							break;
-						case 'bottom':
-							this.$.layout.removeAttribute('start');
-							this.$.layout.setAttribute('end', '');
-							break;
-						default:
-							this.alignTo = 'bottom';
-							break;
-					}
-				},
-				openedChanged: function () {
-					if (this.opened !== !!this.opened) {
-						this.opened = !!this.opened;
-						return;
-					}
-
-					this.$.collapse.opened = this.opened;
-				},
-				publish: {
-  				/**
-          * Align the caption to the 'top' or 'bottom' of its parent.
-          *
-          * @property alignTo
-          * @type String
-          * @default 'bottom'
-          */
-					alignTo: 'bottom',
-  				/**
-          * Set opened to true to show the caption and to false to hide it.
-          *
-          * @property opened
-          * @type boolean
-          * @default false
-          */
+				is: 'hover-caption',
+				properties: {
+					alignTo: {
+						type: String,
+						value: 'bottom',
+						reflectToAttribute: true,
+						observer: 'alignToChanged'
+					},
 					opened: {
+						type: Boolean,
 						value: false,
-						reflect: true
+						reflectToAttribute: true,
+						observer: 'openedChanged'
 					}
 				},
 				ready: function () {
@@ -101,15 +84,21 @@ A Polymer custom element that provides on-hover captions for the parent element.
 
 					this.alignToChanged();
 				},
-				/**
-         * Toggle the opened state.
-         *
-         * @method toggle
-         */
+				alignToChanged: function () {
+					if (['top', 'bottom'].indexOf(this.alignTo) === -1) this.alignTo = 'bottom';
+				},
+				openedChanged: function () {
+					if (this.opened !== !!this.opened) {
+						this.opened = !!this.opened;
+						return;
+					}
+
+					this.$.collapse.opened = this.opened;
+				},
 				toggle: function () {
 					this.opened = !this.opened;
 				}
 			}
 		);
 	</script>
-</polymer-element>
+</dom-module>

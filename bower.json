@@ -1,6 +1,6 @@
 {
   "name": "hover-caption",
-  "version": "0.0.12",
+  "version": "1.0.0",
   "authors": [
     "miztroh <miztroh@gmail.com>"
   ],
@@ -23,6 +23,8 @@
     "tests"
   ],
   "dependencies": {
-    "core-collapse": "Polymer/core-collapse#latest"
+    "polymer": "Polymer/polymer#latest",
+    "iron-collapse": "PolymerElements/iron-collapse#latest",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#latest"
   }
 }
